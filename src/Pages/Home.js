@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ProductCategorieList from '../Components/ProductCategorieList';
 import * as api from '../services/api';
 import cart from '../Images/cart.png';
+import ProductList from '../Components/ProductList';
 
 class Home extends Component {
   constructor() {
@@ -11,15 +12,34 @@ class Home extends Component {
     this.getCategories = this.getCategories.bind(this);
     this.categorieHandleChange = this.categorieHandleChange.bind(this);
     this.categoriesMap = this.categoriesMap.bind(this);
+    this.handlechangeSearch = this.handlechangeSearch.bind(this);
+    this.handleClick = this.handleClick.bind(this);
 
     this.state = {
       categories: [],
       selectedCategorie: '',
+      searchText: '',
+      listProduct: [],
+      loading: true,
     };
   }
 
   componentDidMount() {
     this.getCategories();
+  }
+
+  handlechangeSearch({ target }) {
+    this.setState({ searchText: target.value });
+  }
+
+  async handleClick() {
+    const { selectedCategorie, searchText } = this.state;
+    const selectedCategorieRequest = await api
+      .getProductsFromCategoryAndQuery(selectedCategorie, searchText);
+    this.setState({
+      listProduct: selectedCategorieRequest,
+      loading: false,
+    });
   }
 
   async getCategories() {
@@ -50,11 +70,24 @@ class Home extends Component {
   }
 
   render() {
+    const { listProduct, loading } = this.state;
     document.title = 'Home - Lista De Produtos';
     return (
       <div>
         <div>
-          <input className="searchInput" type="text" />
+          <input
+            data-testid="query-input"
+            onChange={ this.handlechangeSearch }
+            className="searchInput"
+            type="text"
+          />
+          <button
+            data-testid="query-button"
+            type="button"
+            onClick={ this.handleClick }
+          >
+            Buscar
+          </button>
           <p data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
@@ -67,9 +100,10 @@ class Home extends Component {
         <div className="filter-category">
           <h2>Categorias:</h2>
           <ul>
-            { this.categoriesMap()}
+            { this.categoriesMap() }
           </ul>
         </div>
+        {loading ? <p>teste</p> : <ProductList products={ listProduct } /> }
       </div>
     );
   }
