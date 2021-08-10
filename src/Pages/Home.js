@@ -50,6 +50,7 @@ class Home extends Component {
   }
 
   render() {
+    document.title = 'Home - Lista De Produtos';
     return (
       <div>
         <div>
@@ -59,7 +60,7 @@ class Home extends Component {
           </p>
         </div>
         <div>
-          <Link to="/shopping-cart">
+          <Link to="/shopping-cart" data-testid="shopping-cart-button">
             <img src={ cart } alt="cart" width="30px" />
           </Link>
         </div>
