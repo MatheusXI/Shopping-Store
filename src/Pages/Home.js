@@ -74,6 +74,12 @@ class Home extends Component {
   render() {
     const { listProduct, loading } = this.state;
     document.title = 'Home - Lista De Produtos';
+
+    const empty = (
+      <p data-testid="home-initial-message">
+        Digite algum termo de pesquisa ou escolha uma categoria.
+      </p>
+    );
     return (
       <div>
         <div>
@@ -105,9 +111,7 @@ class Home extends Component {
             { this.categoriesMap() }
           </ul>
         </div>
-        {loading ? <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-                   </p> : <ProductList products={ listProduct } /> }
+        {loading ? empty : <ProductList products={ listProduct } /> }
       </div>
     );
   }
