@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class AddProductToCart extends Component {
   constructor(props) {
@@ -58,4 +59,7 @@ class AddProductToCart extends Component {
   }
 }
 
+AddProductToCart.propTypes = {
+  productInfor: PropTypes.shape().isRequired,
+};
 export default AddProductToCart;
