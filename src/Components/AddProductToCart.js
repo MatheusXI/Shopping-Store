@@ -48,9 +48,10 @@ class AddProductToCart extends Component {
   }
 
   render() {
+    const { datatestid } = this.props;
     return (
       <input
-        data-testid="product-detail-add-to-cart"
+        data-testid={ datatestid }
         type="button"
         value="Add Produto ao Carrinho"
         onClick={ this.handleClick }
@@ -60,6 +61,7 @@ class AddProductToCart extends Component {
 }
 
 AddProductToCart.propTypes = {
-  productInfor: PropTypes.shape().isRequired,
-};
+  productInfor: PropTypes.shape(),
+  datatestid: PropTypes.string,
+}.isRequired;
 export default AddProductToCart;
