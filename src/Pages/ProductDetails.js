@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import cart from '../Images/cart.png';
 import AddProductToCart from '../Components/AddProductToCart';
 
 class ProductDetails extends Component {
@@ -12,6 +14,9 @@ class ProductDetails extends Component {
         R$
         <span>000.00</span>
         <AddProductToCart productInfor={ { title, price, thumbnail, id } } />
+        <Link to="/shopping-cart" data-testid="shopping-cart-button">
+          <img src={ cart } alt="cart" width="30px" />
+        </Link>
       </div>
     );
   }

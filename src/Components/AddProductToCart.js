@@ -50,9 +50,9 @@ class AddProductToCart extends Component {
   render() {
     return (
       <input
+        data-testid="product-detail-add-to-cart"
         type="button"
         value="Add Produto ao Carrinho"
-        data-testid="product-add-to-cart"
         onClick={ this.handleClick }
       />
     );
