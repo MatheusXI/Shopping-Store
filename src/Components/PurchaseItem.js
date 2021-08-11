@@ -16,35 +16,34 @@ class PurchaseItem extends Component {
     this.sum = this.sum.bind(this);
     this.sub = this.sub.bind(this);
     this.del = this.del.bind(this);
+    this.purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
   }
 
   sum() {
-    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
     const { product: { id } } = this.props;
+    const productFound = this.purchaseList.find((item) => item.id === id);
+
     this.setState(({ valor: this.state.valor + 1 }), () => {
-      const productFound = purchaseList.find((item) => item.id === id);
       productFound.quantity = this.state.valor;
-      localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
+      localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
     });
   }
 
   del(event) {
     const { product: { id } } = this.props;
-    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
-    const deleteProduct = purchaseList.find((item) => item.id === id);
-    const indice = purchaseList.indexOf(deleteProduct);
-    purchaseList.splice(indice, 1);
-    localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
-    event.target.parentNode.remove();
+    const deleteProduct = this.purchaseList.filter((item) => item.id !== id);
+    localStorage.setItem('purchaseList', JSON.stringify(deleteProduct));
+    event.target.parentNode.parentElement.remove();
+    console.log(deleteProduct);
   }
 
   sub() {
-    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
     const { product: { id } } = this.props;
+    const productFound = this.purchaseList.find((item) => item.id === id);
+
     this.setState(({ valor: this.state.valor - 1 }), () => {
-      const productFound = purchaseList.find((item) => item.id === id);
       productFound.quantity = this.state.valor;
-      localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
+      localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
     });
   }
 
@@ -56,13 +55,30 @@ class PurchaseItem extends Component {
         <div><img onClick={ this.del } src={ removeIcon } alt="Remove Item" width="60px" /></div>
         <img src={ thumbnail } alt="Imagem do Produto" width="100px" />
         <h3 data-testid="shopping-cart-product-name">{ title }</h3>
-        <div><img onClick={ this.sub } src={ menosIcon } alt="Aumenta quantidade" width="20px" /></div>
+        <div>
+          <img
+            onClick={ this.sub }
+            src={ menosIcon }
+            alt="Aumenta quantidade"
+            width="20px"
+            data-testid="product-decrease-quantity"
+          />
+
+        </div>
         <h3 data-testid="shopping-cart-product-quantity">{ valor }</h3>
-        <div><img onClick={ this.sum } src={ maisIcon } alt="Diminuir quantidade" width="20px" /></div>
+        <div>
+          <img
+            onClick={ this.sum }
+            src={ maisIcon }
+            alt="Diminuir quantidade"
+            width="20px"
+            data-testid="product-increase-quantity"
+          />
+
+        </div>
         <p>
           R$
           { price }
-          {id}
         </p>
       </div>
     );
