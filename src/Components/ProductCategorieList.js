@@ -7,9 +7,10 @@ class ProductCategorieList extends Component {
     const { id, name } = categorie;
 
     return (
-      <li className="category" data-testid="category">
+      <li className="category">
         <label htmlFor={ id }>
           <input
+            data-testid="category"
             type="radio"
             value={ id }
             id={ id }
