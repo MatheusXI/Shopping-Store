@@ -22,7 +22,10 @@ class Product extends React.Component {
             { price }
           </span>
         </Link>
-        <AddProductToCart productInfor={ { title, price, thumbnail, id } } />
+        <AddProductToCart
+          datatestid="product-add-to-cart"
+          productInfor={ { title, price, thumbnail, id } }
+        />
       </div>
     );
   }
