@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import AddProductToCart from '../Components/AddProductToCart';
 
 class ProductDetails extends Component {
   render() {
-    const { location: { state: { title } } } = this.props;
+    const { location: { state: { title, price, thumbnail, id } } } = this.props;
     return (
       <div>
         <p data-testid="product-detail-name">{ title }</p>
-        <img src="./" alt="Imagem do Produto" />
+        <img src={ thumbnail } alt="Imagem do Produto" />
         R$
         <span>000.00</span>
+        <AddProductToCart productInfor={ { title, price, thumbnail, id } } />
       </div>
     );
   }
