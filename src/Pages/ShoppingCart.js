@@ -13,12 +13,14 @@ class ShoppingCart extends Component {
       </>
     );
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
+    const quantidadeDeProduto = purchaseList.length;
     document.title = 'Carrinho de Compras';
     return (
       <div>
         <Link to="/" data-testid="shopping-cart-button">
           <img src={ backpage } alt="cart" width="30px" />
         </Link>
+        <p>{ quantidadeDeProduto }</p>
         { purchaseList ? <ListOfProductsInCart purchaseList={ purchaseList } /> : empty}
       </div>
     );
