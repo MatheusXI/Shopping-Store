@@ -11,7 +11,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Route exact path="/" component={ Home } />
         <Route exact path="/shopping-cart" component={ ShoppingCart } />
-        <Route path="/product-details" component={ ProductDetails } />
+        <Route path="/product-details/:id" component={ ProductDetails } />
       </BrowserRouter>
     );
   }

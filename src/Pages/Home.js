@@ -51,7 +51,6 @@ class Home extends Component {
   }
 
   categorieHandleChange({ target }) {
-    console.log(target.value);
     this.setState({
       selectedCategorie: target.value,
     }, () => { this.handleClick(); });
