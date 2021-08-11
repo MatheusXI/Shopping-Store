@@ -96,9 +96,6 @@ class Home extends Component {
           >
             Buscar
           </button>
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
         </div>
         <div>
           <Link to="/shopping-cart" data-testid="shopping-cart-button">
