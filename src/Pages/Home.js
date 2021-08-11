@@ -36,6 +36,7 @@ class Home extends Component {
     const { selectedCategorie, searchText } = this.state;
     const selectedCategorieRequest = await api
       .getProductsFromCategoryAndQuery(selectedCategorie, searchText);
+
     this.setState({
       listProduct: selectedCategorieRequest,
       loading: false,
@@ -50,9 +51,10 @@ class Home extends Component {
   }
 
   categorieHandleChange({ target }) {
+    console.log(target.value);
     this.setState({
       selectedCategorie: target.value,
-    });
+    }, () => { this.handleClick(); });
   }
 
   categoriesMap() {
@@ -103,7 +105,9 @@ class Home extends Component {
             { this.categoriesMap() }
           </ul>
         </div>
-        {loading ? <p>teste</p> : <ProductList products={ listProduct } /> }
+        {loading ? <p data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+                   </p> : <ProductList products={ listProduct } /> }
       </div>
     );
   }
