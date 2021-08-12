@@ -62,7 +62,11 @@ class PurchaseItem extends Component {
         </button>
         <img src={ thumbnail } alt="Imagem do Produto" width="100px" />
         <h3 data-testid="shopping-cart-product-name">{ title }</h3>
-        <button type="button" onClick={ this.sub }>
+        <button
+          data-testid="product-decrease-quantity"
+          type="button"
+          onClick={ this.sub }
+        >
           <img
             src={ menosIcon }
             alt="Menos"
@@ -70,7 +74,11 @@ class PurchaseItem extends Component {
           />
         </button>
         <h3 data-testid="shopping-cart-product-quantity">{ valor }</h3>
-        <button type="button" onClick={ this.sum }>
+        <button
+          data-testid="product-increase-quantity"
+          type="button"
+          onClick={ this.sum }
+        >
           <img
             src={ maisIcon }
             alt="Mais"
