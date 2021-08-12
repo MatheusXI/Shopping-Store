@@ -20,62 +20,63 @@ class PurchaseItem extends Component {
   }
 
   sum() {
+    const { valor } = this.state;
     const { product: { id } } = this.props;
     const productFound = this.purchaseList.find((item) => item.id === id);
 
-    this.setState(({ valor: this.state.valor + 1 }), () => {
-      productFound.quantity = this.state.valor;
+    this.setState(({ valor: valor + 1 }), () => {
+      productFound.quantity = valor;
       localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
     });
   }
 
   del(event) {
     const { product: { id } } = this.props;
-    const deleteProduct = this.purchaseList.filter((item) => item.id !== id);
-    localStorage.setItem('purchaseList', JSON.stringify(deleteProduct));
+    const updatedProductList = this.purchaseList.filter((item) => item.id !== id);
+    localStorage.setItem('purchaseList', JSON.stringify(updatedProductList));
     event.target.parentNode.parentElement.remove();
-    console.log(deleteProduct);
   }
 
   sub() {
+    const { valor } = this.state;
     const { product: { id } } = this.props;
     const productFound = this.purchaseList.find((item) => item.id === id);
 
-    this.setState(({ valor: this.state.valor - 1 }), () => {
-      productFound.quantity = this.state.valor;
+    this.setState(({ valor: valor - 1 }), () => {
+      productFound.quantity = valor;
       localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
     });
   }
 
   render() {
-    const { product: { title, price, thumbnail, id } } = this.props;
+    const { product: { title, price, thumbnail } } = this.props;
     const { valor } = this.state;
     return (
       <div className="purchaseList-container-item">
-        <div><img onClick={ this.del } src={ removeIcon } alt="Remove Item" width="60px" /></div>
+        <button type="button" onClick={ this.del }>
+          <img
+            src={ removeIcon }
+            alt="Remove Item"
+            width="60px"
+          />
+        </button>
         <img src={ thumbnail } alt="Imagem do Produto" width="100px" />
         <h3 data-testid="shopping-cart-product-name">{ title }</h3>
-        <div>
+        <button type="button" onClick={ this.sub }>
           <img
-            onClick={ this.sub }
             src={ menosIcon }
-            alt="Aumenta quantidade"
-            width="20px"
-            data-testid="product-decrease-quantity"
+            alt="Menos"
+            width="60px"
           />
-
-        </div>
+        </button>
         <h3 data-testid="shopping-cart-product-quantity">{ valor }</h3>
-        <div>
+        <button type="button" onClick={ this.sum }>
           <img
-            onClick={ this.sum }
             src={ maisIcon }
-            alt="Diminuir quantidade"
-            width="20px"
-            data-testid="product-increase-quantity"
+            alt="Mais"
+            width="60px"
           />
-
-        </div>
+        </button>
         <p>
           R$
           { price }

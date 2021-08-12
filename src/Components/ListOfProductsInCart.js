@@ -8,7 +8,7 @@ class ListOfProductsInCart extends Component {
     return (
       <div className="purchaseList-container">
         {purchaseList.map(
-          (product) => <PurchaseItem  product={ product } key={ product.id } />,
+          (product) => <PurchaseItem product={ product } key={ product.id } />,
         )}
       </div>
     );
