@@ -4,6 +4,7 @@ import ProductCategorieList from '../Components/ProductCategorieList';
 import * as api from '../services/api';
 import cart from '../Images/cart.png';
 import ProductList from '../Components/ProductList';
+import search from '../Images/search.png';
 
 class Home extends Component {
   constructor() {
@@ -80,34 +81,43 @@ class Home extends Component {
       </p>
     );
     return (
-      <div>
-        <div>
-          <input
-            data-testid="query-input"
-            onChange={ this.handlechangeSearch }
-            className="searchInput"
-            type="text"
-          />
-          <button
-            data-testid="query-button"
-            type="button"
-            onClick={ this.handleClick }
-          >
-            Buscar
-          </button>
-        </div>
-        <div>
-          <Link to="/shopping-cart" data-testid="shopping-cart-button">
-            <img src={ cart } alt="cart" width="30px" />
-          </Link>
-        </div>
-        <div className="filter-category">
-          <h2>Categorias:</h2>
-          <ul>
-            { this.categoriesMap() }
-          </ul>
-        </div>
-        {loading ? empty : <ProductList products={ listProduct } /> }
+      <div className="container-home">
+        <header className="header">
+          <div>
+            <input
+              placeholder="Buscar produtos, marcas e muito mais..."
+              data-testid="query-input"
+              onChange={ this.handlechangeSearch }
+              className="searchInput"
+              type="text"
+            />
+            <button
+              className="button-search"
+              data-testid="query-button"
+              type="button"
+              onClick={ this.handleClick }
+            >
+              <img src={ search } alt="logo-search" width="10px" />
+            </button>
+          </div>
+          <div>
+            <Link className="cart" to="/shopping-cart" data-testid="shopping-cart-button">
+              <img src={ cart } alt="cart" width="30px" />
+            </Link>
+          </div>
+        </header>
+        <aside>
+          <div className="filter-category">
+            <h2>Categorias:</h2>
+            <ul className="list-category">
+              { this.categoriesMap() }
+            </ul>
+          </div>
+          <div className="list">
+            {loading ? empty : <ProductList products={ listProduct } /> }
+          </div>
+
+        </aside>
       </div>
     );
   }

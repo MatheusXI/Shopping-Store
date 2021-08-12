@@ -8,24 +8,32 @@ class Product extends React.Component {
     const { product } = this.props;
     const { title, thumbnail, price, id } = product;
     return (
-      <div data-testid="product">
+      <div className="product" data-testid="product">
         <Link
+          className="link-product"
           to={ { pathname: `/product-details/${id}`,
             state: { ...product } } }
           data-testid="product-detail-link"
         >
-          <img src={ thumbnail } alt={ title } />
-          <h1>
-            { title }
-          </h1>
-          <span>
-            { price }
-          </span>
+          <img className="img-product" src={ thumbnail } alt={ title } />
+          <hr />
+          <div className="title-product">
+            <h3>
+              { title }
+            </h3>
+          </div>
+          <div className="contain-price-button">
+            <span className="price">
+              R$
+              {' '}
+              { price }
+            </span>
+            <AddProductToCart
+              datatestid="product-add-to-cart"
+              productInfor={ { title, price, thumbnail, id } }
+            />
+          </div>
         </Link>
-        <AddProductToCart
-          datatestid="product-add-to-cart"
-          productInfor={ { title, price, thumbnail, id } }
-        />
       </div>
     );
   }
