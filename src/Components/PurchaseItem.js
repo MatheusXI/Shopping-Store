@@ -41,11 +41,12 @@ class PurchaseItem extends Component {
     const { valor } = this.state;
     const { product: { id } } = this.props;
     const productFound = this.purchaseList.find((item) => item.id === id);
-
-    this.setState(({ valor: valor - 1 }), () => {
-      productFound.quantity = valor;
-      localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
-    });
+    if (valor > 0) {
+      this.setState(({ valor: valor - 1 }), () => {
+        productFound.quantity = valor;
+        localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
+      });
+    }
   }
 
   render() {
@@ -53,11 +54,11 @@ class PurchaseItem extends Component {
     const { valor } = this.state;
     return (
       <div className="purchaseList-container-item">
-        <button type="button" onClick={ this.del }>
+        <button width="10px" type="button" onClick={ this.del }>
           <img
+            width="10px"
             src={ removeIcon }
             alt="Remove Item"
-            width="60px"
           />
         </button>
         <img src={ thumbnail } alt="Imagem do Produto" width="100px" />
