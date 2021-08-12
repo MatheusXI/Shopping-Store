@@ -19,7 +19,8 @@ class ShoppingCart extends Component {
         <Link to="/" data-testid="shopping-cart-button">
           <img src={ backpage } alt="cart" width="30px" />
         </Link>
-        { purchaseList ? <ListOfProductsInCart purchaseList={ purchaseList } /> : empty}
+        { (!purchaseList || purchaseList.length === 0) ? empty
+          : <ListOfProductsInCart purchaseList={ purchaseList } /> }
       </div>
     );
   }
