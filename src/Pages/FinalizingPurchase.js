@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
+import ReviewProducts from '../Components/ReviewProducts';
 
 class FinalizingPurchase extends Component {
   render() {
     return (
-      <h1>Test</h1>
+      <div className="finalizing-purchase-container">
+        <div>
+          <ReviewProducts />
+        </div>
+        <div>
+          <h1>Informações do Comprador</h1>
+        </div>
+        <div>
+          <h1>Método de Pagamento</h1>
+        </div>
+
+      </div>
     );
   }
 }
