@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import BuyerInformation from '../Components/BuyerInformation';
+import PaymentMethod from '../Components/PaymentMethod';
 import ReviewProducts from '../Components/ReviewProducts';
 
 class FinalizingPurchase extends Component {
@@ -13,9 +14,8 @@ class FinalizingPurchase extends Component {
           <BuyerInformation />
         </div>
         <div>
-          <h1>Método de Pagamento</h1>
+          <PaymentMethod />
         </div>
-
       </div>
     );
   }
