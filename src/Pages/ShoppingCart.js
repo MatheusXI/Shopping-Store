@@ -21,6 +21,9 @@ class ShoppingCart extends Component {
         </Link>
         { (!purchaseList || purchaseList.length === 0) ? empty
           : <ListOfProductsInCart purchaseList={ purchaseList } /> }
+        <Link to="/finalizing-purchase" data-testid="checkout-products">
+          Revisar Produtos
+        </Link>
       </div>
     );
   }
