@@ -16,6 +16,7 @@ class PurchaseItem extends Component {
     this.sum = this.sum.bind(this);
     this.sub = this.sub.bind(this);
     this.del = this.del.bind(this);
+    this.formatarValor = this.formatarValor.bind(this);
     this.purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
   }
 
@@ -47,6 +48,10 @@ class PurchaseItem extends Component {
         localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
       });
     }
+  }
+
+  formatarValor(valor) {
+    return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
   }
 
   render() {
@@ -88,7 +93,7 @@ class PurchaseItem extends Component {
         </button>
         <p>
           R$
-          { price }
+          { this.formatarValor(price) }
         </p>
       </div>
     );

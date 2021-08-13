@@ -4,6 +4,15 @@ import { Link } from 'react-router-dom';
 import AddProductToCart from './AddProductToCart';
 
 class Product extends React.Component {
+  constructor() {
+    super();
+    this.formatarValor = this.formatarValor.bind(this);
+  }
+
+  formatarValor(valor) {
+    return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+  }
+
   render() {
     const { product } = this.props;
     const { title, thumbnail, price, id } = product;
@@ -18,7 +27,7 @@ class Product extends React.Component {
           <img className="img-product" src={ thumbnail } alt={ title } />
           <hr />
           <div className="title-product">
-            <h3>
+            <h3 className="title">
               { title }
             </h3>
           </div>
@@ -26,14 +35,16 @@ class Product extends React.Component {
             <span className="price">
               R$
               {' '}
-              { price }
+              { this.formatarValor(price) }
             </span>
-            <AddProductToCart
-              datatestid="product-add-to-cart"
-              productInfor={ { title, price, thumbnail, id } }
-            />
           </div>
         </Link>
+        <div className="button">
+          <AddProductToCart
+            datatestid="product-add-to-cart"
+            productInfor={ { title, price, thumbnail, id } }
+          />
+        </div>
       </div>
     );
   }
