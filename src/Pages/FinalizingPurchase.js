@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import BuyerInformation from '../Components/BuyerInformation';
 import PaymentMethod from '../Components/PaymentMethod';
 import ReviewProducts from '../Components/ReviewProducts';
@@ -8,7 +9,7 @@ class FinalizingPurchase extends Component {
     super(props);
 
     this.state = {
-      fullname: 'Rogerio',
+      fullname: '',
       cpf: '',
       email: '',
       phone: '',
@@ -19,57 +20,114 @@ class FinalizingPurchase extends Component {
       cidade: '',
       states: 'São Paulo',
       checked: false,
+      validated: true,
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange = (event) => {
+  // Atualizar o state.
+  handleChange(event) {
     const { name } = event.target;
     const { value } = event.target;
-
-    console.log(value, name);
     this.setState({
       [name]: value,
     });
   }
 
-  // cpf = (v) => {
-  //   v = v.replace(/\D/g, ''); // Remove tudo o que não é dígito
-  //   v = v.replace(/(\d{3})(\d)/, '$1.$2'); // Coloca um ponto entre o terceiro e o quarto dígitos
-  //   v = v.replace(/(\d{3})(\d)/, '$1.$2'); // Coloca um ponto entre o terceiro e o quarto dígitos
-  //   // de novo (para o segundo bloco de números)
-  //   v = v.replace(/(\d{3})(\d{1,2})$/, '$1-$2'); // Coloca um hífen entre o terceiro e o quarto dígitos
-  //   return v;
-  // }
+  // Evento de Click do finalizar compra.
+  handleClick() {
+    const { history } = this.props;
+    this.setState({ validated: true }, () => {
+      const result = Object.values(this.state).every((input) => input);
+      if (result) {
+        this.setState({ validated: true });
+        // https://stackoverflow.com/questions/29244731/react-router-how-to-manually-invoke-link
+        history.push('/');
+        return;
+      }
+      return this.setState({ validated: false });
+    });
+  }
 
+  handleSubmit(event) {
+    event.preventDefault();
+  }
+
+  // Verificar se o input checked foi selecinado ou não.
   handleChangeChecked = (event) => {
     const { checked: checkedElement } = event.target;
-    const { checked } = this.state;
     this.setState({
       checked: checkedElement,
     });
-    console.log(checkedElement);
-    return checked;
+  }
+
+  // Valida se o campo esta escrito e checked e true.
+  isValid = (value) => {
+    if (value !== '' || value === true) return true;
+    return false;
   }
 
   render() {
+    const amount = 0;
+    const {
+      fullname,
+      cpf,
+      email,
+      phone,
+      cep,
+      address,
+      completento,
+      numero,
+      cidade,
+      states,
+      checked,
+      validated,
+    } = this.state;
     return (
       <div className="finalizing-purchase-container">
         <div>
           <ReviewProducts />
         </div>
-        <div>
-          <BuyerInformation buyerInfo={ this.state } handleChange={ this.handleChange } />
-        </div>
-        <div>
-          <PaymentMethod payment={ this.state } handleChange={ this.handleChangeChecked } />
-        </div>
-        <div>
-          <h2 className="payment-purchase-total">Valor Total: XXXX,xx</h2>
-        </div>
-        <button type="submit"> Finaliza Compra </button>
+        <form onSubmit={ this.handleSubmit }>
+          <div>
+            <BuyerInformation
+              buyerInfo={ { fullname,
+                cpf,
+                email,
+                phone,
+                cep,
+                address,
+                completento,
+                numero,
+                cidade,
+                states,
+                checked,
+                validated } }
+              handleChange={ this.handleChange }
+            />
+          </div>
+          <div>
+            <PaymentMethod
+              handleChange={ this.handleChangeChecked }
+            />
+          </div>
+          <div>
+            <h2 className="payment-purchase-total">
+              Valor Total:R$
+              { amount }
+            </h2>
+          </div>
+          <button type="submit" onClick={ this.handleClick }> Finaliza Compra </button>
+        </form>
       </div>
     );
   }
 }
 
+FinalizingPurchase.propTypes = {
+  history: PropTypes.objectOf(),
+}.isRequired;
 export default FinalizingPurchase;
