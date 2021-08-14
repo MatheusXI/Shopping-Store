@@ -6,6 +6,15 @@ import AddProductToCart from '../Components/AddProductToCart';
 import Assesment from '../Components/Assesment';
 
 class ProductDetails extends Component {
+  constructor() {
+    super();
+    this.formatarValor = this.formatarValor.bind(this);
+  }
+
+  formatarValor(valor) {
+    return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+  }
+
   render() {
     const { location: { state: { title, price, thumbnail, id } } } = this.props;
     return (
@@ -13,7 +22,9 @@ class ProductDetails extends Component {
         <p data-testid="product-detail-name">{ title }</p>
         <img src={ thumbnail } alt="Imagem do Produto" />
         R$
-        <span>000.00</span>
+        <span>
+          { this.formatarValor(price) }
+        </span>
         <AddProductToCart
           datatestid="product-detail-add-to-cart"
           productInfor={ { title, price, thumbnail, id } }

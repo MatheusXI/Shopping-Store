@@ -11,7 +11,13 @@ class PaymentMethod extends Component {
           <legend>Método de Pagamento</legend>
           <label htmlFor="boleto">
             Boleto
-            <input onChange={ handleChange } id="boleto" type="radio" name="paymentmethod" value="boleto" />
+            <input
+              onChange={ handleChange }
+              id="boleto"
+              type="radio"
+              name="paymentmethod"
+              value="boleto"
+            />
             <img id="boleto" src={ boleto } alt="boleto" width="70px" />
           </label>
 
