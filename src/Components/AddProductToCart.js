@@ -7,7 +7,6 @@ class AddProductToCart extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.saveLocalStorage = this.saveLocalStorage.bind(this);
     this.productIsExistent = this.productIsExistent.bind(this);
-    this.cont = 1;
   }
 
   handleClick() {
@@ -32,6 +31,7 @@ class AddProductToCart extends Component {
     // Se existim Aumenta em 1 a quantidade.
     if (isExist) {
       product.quantity += 1;
+      product.amount = product.price * product.quantity;
       localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
       return product;
     }

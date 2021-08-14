@@ -34,7 +34,6 @@ class Product extends React.Component {
           <div className="contain-price-button">
             <span className="price">
               R$
-              {' '}
               { this.formatarValor(price) }
             </span>
           </div>

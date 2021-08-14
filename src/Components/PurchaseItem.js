@@ -26,6 +26,7 @@ class PurchaseItem extends Component {
 
     this.setState((prevState) => {
       productFound.quantity = prevState.valor + 1;
+      productFound.amount = productFound.quantity * productFound.price;
       localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
       return { valor: productFound.quantity };
     });
@@ -47,6 +48,7 @@ class PurchaseItem extends Component {
     if (valor > 0) {
       this.setState((prevState) => {
         productFound.quantity = prevState.valor - 1;
+        productFound.amount = productFound.quantity * productFound.price;
         localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
         return { valor: productFound.quantity };
       });
@@ -70,7 +72,7 @@ class PurchaseItem extends Component {
           />
         </button>
         <img src={ thumbnail } alt="Imagem do Produto" width="100px" />
-        <h3 data-testid="shopping-cart-product-name">{ title }</h3>
+        <h3 data-testid="shopping-cart-product-name">{title}</h3>
         <button
           data-testid="product-decrease-quantity"
           type="button"
@@ -82,7 +84,7 @@ class PurchaseItem extends Component {
             width="60px"
           />
         </button>
-        <h3 data-testid="shopping-cart-product-quantity">{ valor }</h3>
+        <h3 data-testid="shopping-cart-product-quantity">{valor}</h3>
         <button
           data-testid="product-increase-quantity"
           type="button"
@@ -96,7 +98,7 @@ class PurchaseItem extends Component {
         </button>
         <p>
           R$
-          { this.formatarValor(price) }
+          {this.formatarValor(price)}
         </p>
       </div>
     );
