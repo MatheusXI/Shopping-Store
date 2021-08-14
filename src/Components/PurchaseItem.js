@@ -17,35 +17,38 @@ class PurchaseItem extends Component {
     this.sub = this.sub.bind(this);
     this.del = this.del.bind(this);
     this.formatarValor = this.formatarValor.bind(this);
-    this.purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
   }
 
   sum() {
-    const { valor } = this.state;
+    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
     const { product: { id } } = this.props;
-    const productFound = this.purchaseList.find((item) => item.id === id);
+    const productFound = purchaseList.find((item) => item.id === id);
 
-    this.setState(({ valor: valor + 1 }), () => {
-      productFound.quantity = valor;
-      localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
+    this.setState((prevState) => {
+      productFound.quantity = prevState.valor + 1;
+      localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
+      return { valor: productFound.quantity };
     });
   }
 
   del(event) {
+    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
     const { product: { id } } = this.props;
-    const updatedProductList = this.purchaseList.filter((item) => item.id !== id);
+    const updatedProductList = purchaseList.filter((item) => item.id !== id);
     localStorage.setItem('purchaseList', JSON.stringify(updatedProductList));
     event.target.parentNode.parentElement.remove();
   }
 
   sub() {
+    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
     const { valor } = this.state;
     const { product: { id } } = this.props;
-    const productFound = this.purchaseList.find((item) => item.id === id);
+    const productFound = purchaseList.find((item) => item.id === id);
     if (valor > 0) {
-      this.setState(({ valor: valor - 1 }), () => {
-        productFound.quantity = valor;
-        localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
+      this.setState((prevState) => {
+        productFound.quantity = prevState.valor - 1;
+        localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
+        return { valor: productFound.quantity };
       });
     }
   }
