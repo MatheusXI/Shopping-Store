@@ -6,8 +6,8 @@ import ReviewProducts from '../Components/ReviewProducts';
 
 class FinalizingPurchase extends Component {
   constructor(props) {
+    const amount = localStorage.getItem('amount');
     super(props);
-
     this.state = {
       fullname: '',
       cpf: '',
@@ -21,11 +21,14 @@ class FinalizingPurchase extends Component {
       states: 'São Paulo',
       checked: false,
       validated: true,
+      amount,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.formatarValor = this.formatarValor.bind(this);
+    this.totalValuePurchases = this.totalValuePurchases.bind(this);
   }
 
   // Atualizar o state.
@@ -70,8 +73,16 @@ class FinalizingPurchase extends Component {
     return false;
   }
 
+  formatarValor(valor) {
+    return Number(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+  }
+
+  totalValuePurchases() {
+    const valor = localStorage.getItem('amount');
+    this.setState({ amount: valor });
+  }
+
   render() {
-    const amount = 0;
     const {
       fullname,
       cpf,
@@ -85,11 +96,12 @@ class FinalizingPurchase extends Component {
       states,
       checked,
       validated,
+      amount,
     } = this.state;
     return (
       <div className="finalizing-purchase-container">
         <div>
-          <ReviewProducts />
+          <ReviewProducts totalValuePurchases={ this.totalValuePurchases } />
         </div>
         <form onSubmit={ this.handleSubmit }>
           <div>
@@ -117,7 +129,7 @@ class FinalizingPurchase extends Component {
           <div>
             <h2 className="payment-purchase-total">
               Valor Total:R$
-              { amount }
+              { this.formatarValor(amount)}
             </h2>
           </div>
           <button type="submit" onClick={ this.handleClick }> Finaliza Compra </button>

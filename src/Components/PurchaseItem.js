@@ -22,7 +22,7 @@ class PurchaseItem extends Component {
 
   sum() {
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
-    const { product: { id } } = this.props;
+    const { product: { id }, totalValuePurchases } = this.props;
     const productFound = purchaseList.find((item) => item.id === id);
 
     this.setState((prevState) => {
@@ -30,6 +30,7 @@ class PurchaseItem extends Component {
       productFound.amount = productFound.quantity * productFound.price;
       localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
       this.amount();
+      totalValuePurchases();
       return { valor: productFound.quantity };
     });
   }
@@ -44,7 +45,7 @@ class PurchaseItem extends Component {
 
   sub() {
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
-    const { product: { id } } = this.props;
+    const { product: { id }, totalValuePurchases } = this.props;
     const productFound = purchaseList.find((item) => item.id === id);
     const { valor } = this.state;
     if (valor > 0) {
@@ -53,6 +54,7 @@ class PurchaseItem extends Component {
         productFound.amount = productFound.quantity * productFound.price;
         localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
         this.amount();
+        totalValuePurchases();
         return { valor: productFound.quantity };
       });
     }
@@ -65,7 +67,6 @@ class PurchaseItem extends Component {
   amount() {
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
     const valor = purchaseList.reduce((acc, product) => acc + product.amount, 0);
-    console.log(valor);
     localStorage.setItem('amount', valor);
   }
 

@@ -5,6 +5,7 @@ import backpage from '../Images/backpage.png';
 
 class ReviewProducts extends Component {
   render() {
+    const { totalValuePurchases } = this.props;
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList') || '[]');
     return (
       <>
@@ -16,6 +17,7 @@ class ReviewProducts extends Component {
           { purchaseList.map((product) => (<PurchaseItem
             key={ product.id }
             product={ product }
+            totalValuePurchases={ totalValuePurchases }
             className="review-products-item"
           />))}
         </div>
