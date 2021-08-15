@@ -37,10 +37,19 @@ class PurchaseItem extends Component {
 
   del(event) {
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
+    const amount = localStorage.getItem('amount');
+
     const { product: { id } } = this.props;
-    const updatedProductList = purchaseList.filter((item) => item.id !== id);
+    const updatedProductList = purchaseList.filter((item) => {
+      if (item.id !== id) {
+        return true;
+      }
+      console.log(item.amount, amount);
+      localStorage.setItem('amount', amount - item.amount);
+      return false;
+    });
     localStorage.setItem('purchaseList', JSON.stringify(updatedProductList));
-    event.target.parentNode.parentElement.remove();
+    event.target.parentElement.remove();
   }
 
   sub() {

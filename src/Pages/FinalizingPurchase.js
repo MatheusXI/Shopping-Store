@@ -78,7 +78,7 @@ class FinalizingPurchase extends Component {
   }
 
   totalValuePurchases() {
-    const valor = localStorage.getItem('amount');
+    const valor = localStorage.getItem('amount') || 0;
     this.setState({ amount: valor });
   }
 
