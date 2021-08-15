@@ -17,6 +17,7 @@ class AddProductToCart extends Component {
       thumbnail,
       id,
       quantity: 1,
+      amount: 0,
     };
     this.saveLocalStorage(product);
   }
@@ -24,6 +25,7 @@ class AddProductToCart extends Component {
   saveLocalStorage(productAdd) {
     // Pega a lista de compra do localStorage
     let purchaseList = JSON.parse(localStorage.getItem('purchaseList') || '[]');
+    let amount = JSON.parse(localStorage.getItem('amount') || 0);
 
     // Pesquisa se o produto ja existe pela a Id
     const [isExist, product] = this.productIsExistent(productAdd, purchaseList);
@@ -33,11 +35,13 @@ class AddProductToCart extends Component {
       product.quantity += 1;
       product.amount = product.price * product.quantity;
       localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
+      localStorage.setItem('amount', amount += product.amount);
       return product;
     }
     // Se não existe add o novo Produto.
     purchaseList = [...purchaseList, product];
     localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
+    localStorage.setItem('amount', amount += product.price);
   }
 
   // Função que analiza se o protudo esta ou não na lista.

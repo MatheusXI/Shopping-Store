@@ -16,6 +16,7 @@ class PurchaseItem extends Component {
     this.sum = this.sum.bind(this);
     this.sub = this.sub.bind(this);
     this.del = this.del.bind(this);
+    this.amount = this.amount.bind(this);
     this.formatarValor = this.formatarValor.bind(this);
   }
 
@@ -28,6 +29,7 @@ class PurchaseItem extends Component {
       productFound.quantity = prevState.valor + 1;
       productFound.amount = productFound.quantity * productFound.price;
       localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
+      this.amount();
       return { valor: productFound.quantity };
     });
   }
@@ -42,14 +44,15 @@ class PurchaseItem extends Component {
 
   sub() {
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
-    const { valor } = this.state;
     const { product: { id } } = this.props;
     const productFound = purchaseList.find((item) => item.id === id);
+    const { valor } = this.state;
     if (valor > 0) {
       this.setState((prevState) => {
         productFound.quantity = prevState.valor - 1;
         productFound.amount = productFound.quantity * productFound.price;
         localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
+        this.amount();
         return { valor: productFound.quantity };
       });
     }
@@ -57,6 +60,13 @@ class PurchaseItem extends Component {
 
   formatarValor(valor) {
     return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+  }
+
+  amount() {
+    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
+    const valor = purchaseList.reduce((acc, product) => acc + product.amount, 0);
+    console.log(valor);
+    localStorage.setItem('amount', valor);
   }
 
   render() {
