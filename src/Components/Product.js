@@ -10,7 +10,7 @@ class Product extends React.Component {
   }
 
   formatarValor(valor) {
-    return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+    return valor.toLocaleString('pt-BR', { minimumFractionDigits: 1 });
   }
 
   render() {
@@ -34,7 +34,6 @@ class Product extends React.Component {
           <div className="contain-price-button">
             <span className="price">
               R$
-              {' '}
               { this.formatarValor(price) }
             </span>
           </div>

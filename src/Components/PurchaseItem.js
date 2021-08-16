@@ -16,42 +16,74 @@ class PurchaseItem extends Component {
     this.sum = this.sum.bind(this);
     this.sub = this.sub.bind(this);
     this.del = this.del.bind(this);
+    this.amount = this.amount.bind(this);
     this.formatarValor = this.formatarValor.bind(this);
-    this.purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
   }
 
   sum() {
-    const { valor } = this.state;
-    const { product: { id } } = this.props;
-    const productFound = this.purchaseList.find((item) => item.id === id);
+    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
+    const { product: { id }, totalValuePurchases } = this.props;
+    const productFound = purchaseList.find((item) => item.id === id);
 
-    this.setState(({ valor: valor + 1 }), () => {
-      productFound.quantity = valor;
-      localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
+    this.setState((prevState) => {
+      productFound.quantity = prevState.valor + 1;
+      productFound.amount = productFound.quantity * productFound.price;
+      localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
+      this.amount();
+      totalValuePurchases();
+      return { valor: productFound.quantity };
     });
   }
 
-  del(event) {
+  del() {
+    const { reload } = this.props;
+    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
+    const amount = localStorage.getItem('amount');
+
     const { product: { id } } = this.props;
-    const updatedProductList = this.purchaseList.filter((item) => item.id !== id);
+    const updatedProductList = purchaseList.filter((item) => {
+      if (item.id !== id) {
+        return true;
+      }
+      localStorage.setItem('amount', amount - item.amount);
+      return false;
+    });
     localStorage.setItem('purchaseList', JSON.stringify(updatedProductList));
-    event.target.parentNode.parentElement.remove();
+    reload();
   }
 
   sub() {
+    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
+    const { product: { id }, totalValuePurchases, reload } = this.props;
+    const productFound = purchaseList.find((item) => item.id === id);
     const { valor } = this.state;
-    const { product: { id } } = this.props;
-    const productFound = this.purchaseList.find((item) => item.id === id);
     if (valor > 0) {
-      this.setState(({ valor: valor - 1 }), () => {
-        productFound.quantity = valor;
-        localStorage.setItem('purchaseList', JSON.stringify(this.purchaseList));
+      this.setState((prevState) => {
+        productFound.quantity = prevState.valor - 1;
+        productFound.amount = productFound.quantity * productFound.price;
+        localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
+        this.amount();
+        totalValuePurchases();
+
+        // Atializa a tela do carrinho
+        if (productFound.quantity <= 0) {
+          const newList = purchaseList.filter((item) => item.id !== id);
+          localStorage.setItem('purchaseList', JSON.stringify(newList));
+          reload();
+        }
+        return { valor: productFound.quantity };
       });
     }
   }
 
   formatarValor(valor) {
     return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+  }
+
+  amount() {
+    const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
+    const valor = purchaseList.reduce((acc, product) => acc + product.amount, 0);
+    localStorage.setItem('amount', valor);
   }
 
   render() {
@@ -67,7 +99,7 @@ class PurchaseItem extends Component {
           />
         </button>
         <img src={ thumbnail } alt="Imagem do Produto" width="100px" />
-        <h3 data-testid="shopping-cart-product-name">{ title }</h3>
+        <h3 data-testid="shopping-cart-product-name">{title}</h3>
         <button
           data-testid="product-decrease-quantity"
           type="button"
@@ -79,7 +111,7 @@ class PurchaseItem extends Component {
             width="60px"
           />
         </button>
-        <h3 data-testid="shopping-cart-product-quantity">{ valor }</h3>
+        <h3 data-testid="shopping-cart-product-quantity">{valor}</h3>
         <button
           data-testid="product-increase-quantity"
           type="button"
@@ -93,7 +125,7 @@ class PurchaseItem extends Component {
         </button>
         <p>
           R$
-          { this.formatarValor(price) }
+          {this.formatarValor(price)}
         </p>
       </div>
     );
@@ -101,7 +133,9 @@ class PurchaseItem extends Component {
 }
 
 PurchaseItem.propTypes = {
-  product: PropTypes.shape().isRequired,
-};
+  product: PropTypes.shape(),
+  totalValuePurchases: PropTypes.func,
+  reload: PropTypes.bool,
+}.isRequired;
 
 export default PurchaseItem;

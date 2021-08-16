@@ -16,7 +16,6 @@ class Assesment extends Component {
             Digite aqui sobre o que achou do produto aqui:
           </textarea>
         </form>
-
       </div>
     );
   }
