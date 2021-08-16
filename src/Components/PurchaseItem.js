@@ -35,7 +35,8 @@ class PurchaseItem extends Component {
     });
   }
 
-  del(event) {
+  del() {
+    const { reload } = this.props;
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
     const amount = localStorage.getItem('amount');
 
@@ -44,17 +45,16 @@ class PurchaseItem extends Component {
       if (item.id !== id) {
         return true;
       }
-      console.log(item.amount, amount);
       localStorage.setItem('amount', amount - item.amount);
       return false;
     });
     localStorage.setItem('purchaseList', JSON.stringify(updatedProductList));
-    event.target.parentElement.remove();
+    reload();
   }
 
   sub() {
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
-    const { product: { id }, totalValuePurchases } = this.props;
+    const { product: { id }, totalValuePurchases, reload } = this.props;
     const productFound = purchaseList.find((item) => item.id === id);
     const { valor } = this.state;
     if (valor > 0) {
@@ -64,6 +64,13 @@ class PurchaseItem extends Component {
         localStorage.setItem('purchaseList', JSON.stringify(purchaseList));
         this.amount();
         totalValuePurchases();
+
+        // Atializa a tela do carrinho
+        if (productFound.quantity <= 0) {
+          const newList = purchaseList.filter((item) => item.id !== id);
+          localStorage.setItem('purchaseList', JSON.stringify(newList));
+          reload();
+        }
         return { valor: productFound.quantity };
       });
     }
@@ -126,7 +133,9 @@ class PurchaseItem extends Component {
 }
 
 PurchaseItem.propTypes = {
-  product: PropTypes.shape().isRequired,
-};
+  product: PropTypes.shape(),
+  totalValuePurchases: PropTypes.func,
+  reload: PropTypes.bool,
+}.isRequired;
 
 export default PurchaseItem;

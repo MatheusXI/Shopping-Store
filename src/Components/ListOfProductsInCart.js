@@ -18,7 +18,7 @@ class ListOfProductsInCart extends Component {
   }
 
   render() {
-    const { purchaseList } = this.props;
+    const { purchaseList, reload } = this.props;
     return (
       <div className="purchaseList-container">
         {purchaseList.map(
@@ -26,6 +26,7 @@ class ListOfProductsInCart extends Component {
             product={ product }
             key={ product.id }
             totalValuePurchases={ this.totalValuePurchases }
+            reload={ reload }
           />),
         )}
       </div>

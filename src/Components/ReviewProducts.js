@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import PurchaseItem from './PurchaseItem';
 import backpage from '../Images/backpage.png';
+import PurchaseItem from './PurchaseItem';
 
 class ReviewProducts extends Component {
   render() {
-    const { totalValuePurchases } = this.props;
+    const { totalValuePurchases, reload } = this.props;
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList') || '[]');
     return (
       <>
@@ -18,6 +19,7 @@ class ReviewProducts extends Component {
             key={ product.id }
             product={ product }
             totalValuePurchases={ totalValuePurchases }
+            reload={ reload }
             className="review-products-item"
           />))}
         </div>
@@ -25,5 +27,10 @@ class ReviewProducts extends Component {
     );
   }
 }
+
+ReviewProducts.propTypes = {
+  totalValuePurchases: PropTypes.func,
+  reload: PropTypes.bool,
+}.isRequired;
 
 export default ReviewProducts;

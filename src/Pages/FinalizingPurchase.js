@@ -22,6 +22,7 @@ class FinalizingPurchase extends Component {
       checked: false,
       validated: true,
       amount,
+      reload: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -29,6 +30,7 @@ class FinalizingPurchase extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.formatarValor = this.formatarValor.bind(this);
     this.totalValuePurchases = this.totalValuePurchases.bind(this);
+    this.reload = this.reload.bind(this);
   }
 
   // Atualizar o state.
@@ -82,6 +84,10 @@ class FinalizingPurchase extends Component {
     this.setState({ amount: valor });
   }
 
+  reload() {
+    this.setState({ reload: true });
+  }
+
   render() {
     const {
       fullname,
@@ -101,7 +107,10 @@ class FinalizingPurchase extends Component {
     return (
       <div className="finalizing-purchase-container">
         <div>
-          <ReviewProducts totalValuePurchases={ this.totalValuePurchases } />
+          <ReviewProducts
+            reload={ this.reload }
+            totalValuePurchases={ this.totalValuePurchases }
+          />
         </div>
         <form onSubmit={ this.handleSubmit }>
           <div>
