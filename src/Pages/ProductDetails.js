@@ -20,7 +20,7 @@ class ProductDetails extends Component {
     const { location: { state: { title, price, thumbnail, id } } } = this.props;
     return (
       <div>
-        <Link to="/" data-testid="shopping-cart-button">
+        <Link to="/">
           <img src={ backpage } alt="cart" width="30px" />
         </Link>
         <div>
