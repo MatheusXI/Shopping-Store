@@ -41,12 +41,14 @@ class ShoppingCart extends Component {
     document.title = 'Carrinho de Compras';
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
     return (
-      <div>
-        <Link to="/" data-testid="shopping-cart-button">
-          <img src={ backpage } alt="cart" width="30px" />
-        </Link>
-        { (!purchaseList || purchaseList.length === 0) ? empty : listOfProducts() }
-
+      <div className="shoppingCart-contain">
+        <div className="productsCart">
+          <Link to="/" data-testid="shopping-cart-button">
+            <img src={ backpage } alt="cart" width="30px" className="backpageHome" />
+          </Link>
+          { (!purchaseList || purchaseList.length === 0) ? empty
+            : <ListOfProductsInCart purchaseList={ purchaseList } /> }
+        </div>
       </div>
     );
   }
