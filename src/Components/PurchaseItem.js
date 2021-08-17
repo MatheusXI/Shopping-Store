@@ -90,43 +90,56 @@ class PurchaseItem extends Component {
     const { product: { title, price, thumbnail } } = this.props;
     const { valor } = this.state;
     return (
-      <div className="purchaseList-container-item">
-        <button width="10px" type="button" onClick={ this.del }>
-          <img
+      <div className="container-item">
+        <div className="purchaseList-container-item">
+          <button
+            className="button-removeItem"
             width="10px"
-            src={ removeIcon }
-            alt="Remove Item"
-          />
-        </button>
-        <img src={ thumbnail } alt="Imagem do Produto" width="100px" />
-        <h3 data-testid="shopping-cart-product-name">{title}</h3>
-        <button
-          data-testid="product-decrease-quantity"
-          type="button"
-          onClick={ this.sub }
-        >
-          <img
-            src={ menosIcon }
-            alt="Menos"
-            width="60px"
-          />
-        </button>
-        <h3 data-testid="shopping-cart-product-quantity">{valor}</h3>
-        <button
-          data-testid="product-increase-quantity"
-          type="button"
-          onClick={ this.sum }
-        >
-          <img
-            src={ maisIcon }
-            alt="Mais"
-            width="60px"
-          />
-        </button>
-        <p>
-          R$
-          {this.formatarValor(price)}
-        </p>
+            type="button"
+            onClick={ this.del }
+          >
+            <img
+              width="40px"
+              src={ removeIcon }
+              alt="Remove Item"
+            />
+          </button>
+          <div className="img-product-shopping-cart">
+            <img src={ thumbnail } alt="Imagem do Produto" width="100px" />
+            <h3 data-testid="shopping-cart-product-name">{title}</h3>
+          </div>
+          <div className="contain-buttons">
+            <button
+              className="button-sub"
+              data-testid="product-decrease-quantity"
+              type="button"
+              onClick={ this.sub }
+            >
+              <img
+                src={ menosIcon }
+                alt="Menos"
+                width="20px"
+              />
+            </button>
+            <h3 data-testid="shopping-cart-product-quantity">{valor}</h3>
+            <button
+              className="button-sub"
+              data-testid="product-increase-quantity"
+              type="button"
+              onClick={ this.sum }
+            >
+              <img
+                src={ maisIcon }
+                alt="Mais"
+                width="20px"
+              />
+            </button>
+            <p>
+              R$
+              {this.formatarValor(price)}
+            </p>
+          </div>
+        </div>
       </div>
     );
   }

@@ -11,7 +11,7 @@ body {
 
 .header {
   display: flex;
-  background-color: #036B52;
+  background-color: #0860B1;
   width: 100vw;
   height: 80px;
   justify-content: center;
@@ -71,6 +71,10 @@ body {
 aside {
   display: flex;
   width: 100%;
+}
+
+.displayNone {
+  display: none;
 }
 
 .list {
@@ -149,14 +153,59 @@ hr {
 .shoppingCart-contain {
   display: flex;
   justify-content: center;
-  border: 1px solid red;
-  height: 100vh;
+  /* border: 1px solid red; */
 }
 
 .productsCart {
-  border: 1px solid red;
+  /* border: 1px solid red; */
+  padding: 30px;
+  margin: 10% 0;
+  display: flex;
+  /* align-items: center; */
+  background-color: white;
+  width: 50%;
+}
+
+.button-removeItem {
+  background-color: white;
+  border: none;
+}
+
+.button-sub {
+  width: 30px;
+  margin: 0 10px;
+  background-color: white;
+  border: none;
+}
+
+.container-item {
+  display: flex;
+  justify-content: center;
+  /* border: 1px solid red; */
+
+}
+
+.purchaseList-container-item {
+  align-items: center;
+  /* border: 1px solid red; */
+  display: flex;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.contain-buttons {
+  /* border: 1px solid red; */
   display: flex;
   align-items: center;
-  background-color: white;
-  height: 50%;
+  justify-content: center;
+  width: 50%;
+  margin: 0 10px;
+}
+
+.img-product-shopping-cart {
+  /* border: 1px solid red; */
+  margin: 0 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
