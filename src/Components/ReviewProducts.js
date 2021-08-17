@@ -11,10 +11,10 @@ class ReviewProducts extends Component {
     return (
       <>
         <Link to="/" data-testid="shopping-cart-button">
-          <img src={ backpage } alt="cart" width="30px" />
+          <img src={ backpage } alt="cart" width="30px" id="return" />
         </Link>
         <div className="review-products-list">
-          <h3>Revise seus Produtos</h3>
+          <h3 className="review-title">Revise seus Produtos</h3>
           { purchaseList.map((product) => (<PurchaseItem
             key={ product.id }
             product={ product }

@@ -8,7 +8,7 @@ class ProductCategorieList extends Component {
 
     return (
       <li className="category">
-        <label htmlFor={ id }>
+        <label htmlFor={ id } className="label">
           <input
             data-testid="category"
             type="radio"

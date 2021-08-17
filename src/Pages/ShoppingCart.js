@@ -21,15 +21,10 @@ class ShoppingCart extends Component {
     const listOfProducts = () => {
       const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
       return (
-        <>
-          <ListOfProductsInCart
-            purchaseList={ purchaseList }
-            reload={ this.reload }
-          />
-          <Link to="/finalizing-purchase" data-testid="checkout-products">
-            Revisar Produtos
-          </Link>
-        </>
+        <ListOfProductsInCart
+          purchaseList={ purchaseList }
+          reload={ this.reload }
+        />
       );
     };
     const empty = (
@@ -41,14 +36,28 @@ class ShoppingCart extends Component {
     document.title = 'Carrinho de Compras';
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList'));
     return (
-      <div className="shoppingCart-contain">
-        <Link to="/" data-testid="shopping-cart-button">
-          <img src={ backpage } alt="cart" width="30px" />
-        </Link>
-        <div className="productsCart">
-          { (!purchaseList || purchaseList.length === 0) ? empty : listOfProducts() }
+      <div>
+        <div className="header-cart">
+          <Link to="/" data-testid="shopping-cart-button">
+            <img src={ backpage } alt="cart" width="30px" className="return" />
+          </Link>
+          <button className="review-products" type="button">
+            <Link
+              to="/finalizing-purchase"
+              data-testid="checkout-products"
+              className="link"
+            >
+              Revisar Produtos
+            </Link>
+          </button>
+        </div>
+        <div className="shoppingCart-contain">
+          <div className="productsCart">
+            { (!purchaseList || purchaseList.length === 0) ? empty : listOfProducts() }
+          </div>
         </div>
       </div>
+
     );
   }
 }

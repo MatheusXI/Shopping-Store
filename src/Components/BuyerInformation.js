@@ -23,6 +23,7 @@ class BuyerInformation extends Component {
           <legend>Revise seus Produtos</legend>
           <input
             onChange={ handleChange }
+            className="form-information"
             value={ fullname }
             type="text"
             name="fullname"
@@ -33,6 +34,7 @@ class BuyerInformation extends Component {
           <input
             maxLength="11"
             onChange={ handleChange }
+            className="form-information"
             value={ cpf }
             type="text"
             name="cpf"
@@ -42,15 +44,17 @@ class BuyerInformation extends Component {
           />
           <input
             onChange={ handleChange }
+            className="form-information"
             value={ email }
             type="text"
             name="email"
             data-testid="checkout-email"
-            placeholder="EMail"
+            placeholder="Email"
             required
           />
           <input
             onChange={ handleChange }
+            className="form-information"
             value={ phone }
             type="text"
             name="phone"
@@ -61,6 +65,7 @@ class BuyerInformation extends Component {
           <br />
           <input
             onChange={ handleChange }
+            className="form-information"
             value={ cep }
             type="text"
             name="cep"
@@ -70,6 +75,7 @@ class BuyerInformation extends Component {
           />
           <input
             onChange={ handleChange }
+            className="form-information"
             value={ address }
             type="text"
             name="address"
@@ -80,6 +86,7 @@ class BuyerInformation extends Component {
           <br />
           <input
             onChange={ handleChange }
+            className="form-information"
             value={ completento }
             type="text"
             name="completento"
@@ -88,6 +95,7 @@ class BuyerInformation extends Component {
           />
           <input
             onChange={ handleChange }
+            className="form-information"
             value={ numero }
             type="text"
             name="numero"
@@ -96,13 +104,20 @@ class BuyerInformation extends Component {
           />
           <input
             onChange={ handleChange }
+            className="form-information"
             value={ cidade }
             type="text"
             name="cidade"
             placeholder="Cidade"
             required
           />
-          <select onChange={ handleChange } name="states" id="states" value={ states }>
+          <select
+            onChange={ handleChange }
+            className="form-information"
+            name="states"
+            id="states"
+            value={ states }
+          >
             <option value="Acre">Acre</option>
             <option value="Alagoas">Alagoas</option>
             <option value="Amapá">Amapá</option>
