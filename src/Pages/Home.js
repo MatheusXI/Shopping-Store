@@ -106,6 +106,9 @@ class Home extends Component {
             </Link>
           </div>
         </header>
+        <div className="hr-header">
+          <hr />
+        </div>
         <aside>
           <div className="filter-category">
             <h2>Categorias:</h2>

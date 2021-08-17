@@ -41,6 +41,7 @@ class ShoppingCart extends Component {
           <Link to="/" data-testid="shopping-cart-button">
             <img src={ backpage } alt="cart" width="30px" className="return" />
           </Link>
+          <p>Carrinho de compras</p>
           <button className="review-products" type="button">
             <Link
               to="/finalizing-purchase"
@@ -50,6 +51,9 @@ class ShoppingCart extends Component {
               Revisar Produtos
             </Link>
           </button>
+        </div>
+        <div className="hr-header">
+          <hr />
         </div>
         <div className="shoppingCart-contain">
           <div className="productsCart">

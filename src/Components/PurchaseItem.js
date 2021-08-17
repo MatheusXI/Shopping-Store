@@ -134,7 +134,7 @@ class PurchaseItem extends Component {
                 width="20px"
               />
             </button>
-            <p>
+            <p className="price-finalizing-purchase">
               R$
               {this.formatarValor(price)}
             </p>
