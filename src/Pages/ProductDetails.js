@@ -10,14 +10,24 @@ class ProductDetails extends Component {
   constructor() {
     super();
     this.formatarValor = this.formatarValor.bind(this);
+    this.urlImage = this.urlImage.bind(this);
   }
 
   formatarValor(valor) {
     return valor.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
   }
 
+  urlImage() {
+    const { location: { state } } = this.props;
+    return `https://http2.mlstatic.com/D_NQ_NP_932305-${state.thumbnail_id}-O.webp`;
+  }
+
   render() {
-    const { location: { state: { title, price, thumbnail, id } } } = this.props;
+    const { location: { state: {
+      title,
+      price,
+      thumbnail,
+      id } } } = this.props;
     return (
       <div>
         <div className="header-product-details">
@@ -46,7 +56,7 @@ class ProductDetails extends Component {
             <div className="product-details-img-contain">
               <img
                 className="product-details-img"
-                src={ thumbnail }
+                src={ this.urlImage() }
                 alt="Imagem do Produto"
               />
             </div>
