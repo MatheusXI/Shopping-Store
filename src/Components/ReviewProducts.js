@@ -9,12 +9,25 @@ class ReviewProducts extends Component {
     const { totalValuePurchases, reload } = this.props;
     const purchaseList = JSON.parse(localStorage.getItem('purchaseList') || '[]');
     return (
-      <>
-        <Link to="/" data-testid="shopping-cart-button">
-          <img src={ backpage } alt="cart" width="30px" />
-        </Link>
+      <div>
+        <div className="backToHome-review-products">
+          <Link to="/" data-testid="shopping-cart-button">
+            <img
+              className="img-backToHome-review"
+              src={ backpage }
+              alt="cart"
+              width="30px"
+              id="return"
+            />
+          </Link>
+        </div>
+        <div className="purchase-contain">
+          <h3 className="review-title">Revise seus Produtos</h3>
+        </div>
+        <div className="hr-header">
+          <hr />
+        </div>
         <div className="review-products-list">
-          <h3>Revise seus Produtos</h3>
           { purchaseList.map((product) => (<PurchaseItem
             key={ product.id }
             product={ product }
@@ -23,7 +36,7 @@ class ReviewProducts extends Component {
             className="review-products-item"
           />))}
         </div>
-      </>
+      </div>
     );
   }
 }

@@ -7,12 +7,13 @@ class PaymentMethod extends Component {
   render() {
     const { handleChange } = this.props;
     return (
-      <fieldset>
+      <fieldset className="payment-method">
         <legend>Método de Pagamento</legend>
-        <label htmlFor="boleto">
+        <label htmlFor="boleto" className="labels">
           Boleto
           <input
             onChange={ handleChange }
+            className="form-input"
             id="boleto"
             type="radio"
             name="paymentmethod"
@@ -22,10 +23,11 @@ class PaymentMethod extends Component {
           <img id="boleto" src={ boleto } alt="boleto" width="70px" />
         </label>
 
-        <label htmlFor="credicard">
+        <label htmlFor="credicard" className="labels">
           Visa
           <input
             onChange={ handleChange }
+            className="form-input"
             id="credicard"
             type="radio"
             name="paymentmethod"
@@ -39,10 +41,11 @@ class PaymentMethod extends Component {
           />
         </label>
 
-        <label htmlFor="credicard1">
+        <label htmlFor="credicard1" className="labels">
           Elo
           <input
             onChange={ handleChange }
+            className="form-input"
             id="credicard1"
             type="radio"
             name="paymentmethod"
@@ -55,10 +58,11 @@ class PaymentMethod extends Component {
             width="70px"
           />
         </label>
-        <label htmlFor="credicard2">
+        <label htmlFor="credicard2" className="labels">
           MasterCard
           <input
             onChange={ handleChange }
+            className="form-input"
             id="credicard2"
             type="radio"
             name="paymentmethod"

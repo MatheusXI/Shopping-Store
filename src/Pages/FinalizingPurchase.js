@@ -112,7 +112,7 @@ class FinalizingPurchase extends Component {
             totalValuePurchases={ this.totalValuePurchases }
           />
         </div>
-        <form onSubmit={ this.handleSubmit }>
+        <form onSubmit={ this.handleSubmit } className="form">
           <div>
             <BuyerInformation
               buyerInfo={ { fullname,
@@ -141,7 +141,14 @@ class FinalizingPurchase extends Component {
               { this.formatarValor(amount)}
             </h2>
           </div>
-          <button type="submit" onClick={ this.handleClick }> Finaliza Compra </button>
+          <button
+            className="finalizing-purchase"
+            type="submit"
+            onClick={ this.handleClick }
+          >
+            {' '}
+            Finalizar Compra
+          </button>
         </form>
       </div>
     );

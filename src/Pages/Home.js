@@ -76,7 +76,7 @@ class Home extends Component {
     document.title = 'Home - Lista De Produtos';
 
     const empty = (
-      <p data-testid="home-initial-message">
+      <p data-testid="home-initial-message" className="empty">
         Digite algum termo de pesquisa ou escolha uma categoria.
       </p>
     );
@@ -106,6 +106,9 @@ class Home extends Component {
             </Link>
           </div>
         </header>
+        <div className="hr-header">
+          <hr />
+        </div>
         <aside>
           <div className="filter-category">
             <h2>Categorias:</h2>
