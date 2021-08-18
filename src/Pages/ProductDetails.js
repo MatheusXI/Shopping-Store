@@ -20,24 +20,55 @@ class ProductDetails extends Component {
     const { location: { state: { title, price, thumbnail, id } } } = this.props;
     return (
       <div>
-        <Link to="/">
-          <img src={ backpage } alt="cart" width="30px" />
-        </Link>
-        <div>
-          <p data-testid="product-detail-name">{ title }</p>
-          <img src={ thumbnail } alt="Imagem do Produto" />
-          R$
-          <span>
-            { this.formatarValor(price) }
-          </span>
-          <AddProductToCart
-            datatestid="product-detail-add-to-cart"
-            productInfor={ { title, price, thumbnail, id } }
-          />
-          <Link to="/shopping-cart" data-testid="shopping-cart-button">
+        <div className="header-product-details">
+          <Link to="/">
+            <img
+              src={ backpage }
+              alt="cart"
+              width="30px"
+              className="img-back-product-details"
+            />
+          </Link>
+          <h1 className="title-product-details">Detalhes do produto</h1>
+          <Link
+            to="/shopping-cart"
+            data-testid="shopping-cart-button"
+            className="img-cart-product-details"
+          >
             <img src={ cart } alt="cart" width="30px" />
           </Link>
-          <Assesment />
+        </div>
+        <div className="hr-header">
+          <hr />
+        </div>
+        <div className="product-details-contain">
+          <div className="product-details-items">
+            <div className="product-details-img-contain">
+              <img
+                className="product-details-img"
+                src={ thumbnail }
+                alt="Imagem do Produto"
+              />
+            </div>
+            <div className="product-details-priceButtons">
+              <p
+                className="product-details-title"
+                data-testid="product-detail-name"
+              >
+                { title }
+              </p>
+              <span className="product-details-buttoon">
+                { `R$: ${this.formatarValor(price)}` }
+              </span>
+              <AddProductToCart
+                datatestid="product-detail-add-to-cart"
+                productInfor={ { title, price, thumbnail, id } }
+              />
+            </div>
+          </div>
+          <div>
+            <Assesment />
+          </div>
         </div>
       </div>
     );
