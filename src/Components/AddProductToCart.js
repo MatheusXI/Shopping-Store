@@ -61,6 +61,7 @@ class AddProductToCart extends Component {
           <input
             value="Comprar"
             className="button-comprar"
+            onClick={ this.handleClick }
           />
         </Link>
         <input
